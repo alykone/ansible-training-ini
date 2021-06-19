@@ -4,4 +4,19 @@
   tasks:
     - name: Installer les packages d'installation
       yum:
-       name: mariadb-server state=latest update_cache=yes
+        name: mariadb-server
+        state: latest
+    - name: S'assurer que le service tourne
+      service:
+        name: mariadb
+        state: started
+    - name: Ouvir le port 80/TCP
+      firewalld:
+        service: mysql
+        immediate: true
+        permanent: true
+        state: enabled
+    - name: Redemarrer le service firewalld
+      service:
+        name: firewalld
+        state: restarted
