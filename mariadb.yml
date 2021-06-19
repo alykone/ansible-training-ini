@@ -1,0 +1,7 @@
+---
+- name: Installer et Deployer mariadb
+  hosts: serveur2,serveur3
+  tasks:
+    - name: Installer les packages d'installation
+      yum:
+       name: mariadb-server state=latest update_cache=yes
